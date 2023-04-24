@@ -2,12 +2,16 @@ import { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
 import { io } from "socket.io-client";
 
-export function useSocket() {
-  const [socket, setSocket] = useState<Socket | null>(null);
-  useEffect(() => {
-    setSocket(io(import.meta.env.VITE_SERVER));
-  }, []);
+export type UseSocketType = [socket: Socket | null, isConnected: boolean];
+export function useSocket(): UseSocketType {
+  const [socket, setSocket] = useState<Socket | null>(() => null);
   const [isConnected, setIsConnected] = useState(!!socket?.connected);
+
+  useEffect(() => {
+    if (window) {
+      setSocket(io());
+    }
+  }, []);
 
   useEffect(() => {
     if (!socket) return;
@@ -16,41 +20,21 @@ export function useSocket() {
       setIsConnected(true);
     }
 
-    function onMessage(data) {
-      console.log("message", data);
-      setIsConnected(true);
-    }
     function onDisconnect(data) {
       console.log("disconnected", data);
       setIsConnected(false);
     }
 
-    function onComponent(data) {
-      console.log("component to render", data);
-      console.log("what is data", data);
-      if (data === "firstComponent") {
-        // setComponent(ContactUsForm);
-        // setComponent("contact");
-        // Component.current = ContactUsForm;
-      } else {
-        // Component.current = Home;
-        // setComponent("home");
-      }
-    }
-
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
-    socket.on("message", onMessage);
-    socket.on("component", onComponent);
 
     return () => {
       socket?.off("connect", onConnect);
       socket?.off("disconnect", onDisconnect);
-      socket?.off("message", onMessage);
-      socket?.off("component", onComponent);
     };
   }, [socket]);
-  return socket;
+
+  return [socket, isConnected];
 }
 
 export default useSocket;
