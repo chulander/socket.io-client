@@ -3,8 +3,19 @@ import {
   EnvelopeIcon,
   PhoneIcon,
 } from "@heroicons/react/24/outline";
+import { useCallback } from "react";
 
 export function ContactUsForm() {
+  const onClick = useCallback((e) => {
+    e.preventDefault();
+    console.log("form button is clicking");
+    const event = new CustomEvent("chulander", {
+      detail: {
+        state: { name: "bryan" },
+      },
+    });
+    document.dispatchEvent(event);
+  }, []);
   return (
     <div className="relative isolate bg-gray-900">
       <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
@@ -112,8 +123,9 @@ export function ContactUsForm() {
           </div>
         </div>
         <form
-          action="#"
-          method="POST"
+          // action="#"
+          onSubmit={onClick}
+          // method="POST"
           className="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48"
         >
           <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">

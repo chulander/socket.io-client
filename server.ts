@@ -4,6 +4,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 import express from "express";
 import { createServer as createViteServer } from "vite";
+// import { createClient } from "redis";
+// import { createAdapter } from "@socket.io/redis-streams-adapter";
 import http from "http";
 import cors from "cors";
 import { Server } from "socket.io";
@@ -16,44 +18,54 @@ console.log("what is import.meta.url", import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = parseInt(process.env.SERVER_PORT || "3000");
 
+// const redisClient = createClient({ host: "localhost", port: 6379 });
+
 async function createServer() {
   const app = express();
+  // await redisClient.connect();
   app.use(cors());
 
   const server = http.createServer(app);
 
-  // const io = new Server(server, {
-  //   cors: {
-  //     origin: `http://localhost:${port}`,
-  //     methods: ["GET", "POST"],
-  //   },
-  // });
   const io = new Server(server);
   io.on("connection", (socket) => {
     console.log("New client connected");
-    // if (interval) {
-    //   clearInterval(interval);
-    // }
-    // interval = setInterval(() => getApiAndEmit(socket), 1000);
-    socket.on("getComponent", async () => {
-      const component = await vite.ssrLoadModule(
-        "./src/containers/ContactUsForm.tsx"
+    socket.on("getComponent", async (data) => {
+      const components = [
+        { Contact: "./src/containers/ContactUsForm.tsx" },
+        { Liability: "./src/containers/Liability.tsx" },
+        { Car: "./src/containers/CarInsurance.tsx" },
+        { Home: "./src/containers/HomeInsurance.tsx" },
+      ];
+      const ResolvedComponents = await Promise.all(
+        components.map(async (item) =>
+          vite.ssrLoadModule(Object.values(item)[0])
+        )
       );
-      console.log("what is component", component);
-      const { render } = await vite.ssrLoadModule("./entry-server-wrapper.tsx");
-      // const str = await ReactDOMServer.renderToStaticMarkup(
-      //   <TargetComponent />
+      const mappings = new Map();
+      components.forEach((item, i) => {
+        mappings.set(Object.keys(item)[0], ResolvedComponents[i]);
+      });
+
+      // const component = await vite.ssrLoadModule(
+      //   "./src/containers/ContactUsForm.tsx"
       // );
+      const component = mappings.get(data);
+      const { render } = await vite.ssrLoadModule(
+        "./src/entry-server-wrapper.tsx"
+      );
       const str = await render(component.default);
-      console.log("what is rendered str", str);
+      // // console.log("what is rendered str", str);
 
       socket.emit("component", str);
+      // stream.pipe(str);
     });
     socket.on("disconnect", () => {
       console.log("Client disconnected");
       // clearInterval(interval);
     });
   });
+
   // Create Vite server in middleware mode and configure the app type as
   // 'custom', disabling Vite's own HTML serving logic so parent server
   // can take control

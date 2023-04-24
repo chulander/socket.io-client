@@ -1,8 +1,13 @@
-import React from "react";
+// import React from "react";
 import ReactDOMServer from "react-dom/server";
-import { ContactUsForm } from "./src/containers/ContactUsForm";
 
 export function render(Component: () => JSX.Element) {
   // let router = createStaticRouter(, context);
+  const headers = {
+    headers: {
+      "Content-Type": "text/html",
+      "Cache-Control": "no-transform",
+    },
+  };
   return ReactDOMServer.renderToString(<Component />);
 }
