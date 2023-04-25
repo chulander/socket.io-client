@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Socket } from "socket.io-client";
 
 import { useSocket } from "./useSocket";
@@ -10,11 +10,11 @@ export function useDynamicComponent(): DynamicComponentType {
   const [socket, isConnected] = useSocket();
 
   const [component, setComponent] = useState<string | TrustedHTML>("");
-  const onMessage = useCallback((data) => {
+  const onMessage = useCallback((data: unknown) => {
     console.log("message", data);
   }, []);
 
-  const onComponent = useCallback((data) => {
+  const onComponent = useCallback((data: unknown) => {
     if (typeof data === "string") {
       console.log("setting Component", data);
       setComponent(data as TrustedHTML);

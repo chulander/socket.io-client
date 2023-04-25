@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import ReactDOMServer from "react-dom/server";
 import { StaticRouter, StaticRouterProps } from "react-router-dom/server";
 import ScrollToTop from "./hooks/ScrollToTop.ts";
@@ -12,11 +12,9 @@ export function render(
   // let router = createStaticRouter(, context);
   // console.log("what is context", context);
   return ReactDOMServer.renderToString(
-    <React.StrictMode>
-      <StaticRouter location={url}>
-        <ScrollToTop />
-        <App />
-      </StaticRouter>
-    </React.StrictMode>
+    <StaticRouter location={url}>
+      <ScrollToTop />
+      <App />
+    </StaticRouter>
   );
 }

@@ -42,7 +42,7 @@ export function Nav({ className }: Nav) {
                   </NavItem>
                   <NavItem
                     to="/about"
-                    className={({ isActive, isPending }) =>
+                    className={({ isActive }) =>
                       isActive ? activeClassname : defaultClassname
                     }
                   >
@@ -50,7 +50,7 @@ export function Nav({ className }: Nav) {
                   </NavItem>
                   <NavItem
                     to="/contact"
-                    className={({ isActive, isPending }) =>
+                    className={({ isActive }) =>
                       isActive ? activeClassname : defaultClassname
                     }
                   >

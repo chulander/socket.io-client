@@ -16,7 +16,7 @@ dotenvSafe.config();
 
 console.log("what is import.meta.url", import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const port = parseInt(process.env.SERVER_PORT || "3000");
+const port = parseInt(process.env.VITE_SERVER_PORT || "3000");
 
 // const redisClient = createClient({ host: "localhost", port: 6379 });
 

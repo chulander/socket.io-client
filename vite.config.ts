@@ -8,7 +8,8 @@ export default ({ mode }) => {
 
   return defineConfig({
     server: {
-      port: parseInt(process.env.VITE_PORT) || 4000,
+      port: parseInt(process.env.VITE_SERVER_PORT) || 4000,
+      origin: `http://127.0.0.1:${process.env.VITE_SERVER_PORT}`,
     },
     plugins: [svgr(), react()],
   });

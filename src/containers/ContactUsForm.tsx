@@ -3,10 +3,10 @@ import {
   EnvelopeIcon,
   PhoneIcon,
 } from "@heroicons/react/24/outline";
-import { useCallback } from "react";
+import { useCallback, MouseEvent } from "react";
 
 export function ContactUsForm() {
-  const onClick = useCallback((e) => {
+  const onClick = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log("form button is clicking");
     const event = new CustomEvent("chulander", {
@@ -124,7 +124,7 @@ export function ContactUsForm() {
         </div>
         <form
           // action="#"
-          onSubmit={onClick}
+          // onSubmit={onClick}
           // method="POST"
           className="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48"
         >
@@ -219,6 +219,7 @@ export function ContactUsForm() {
             <div className="mt-8 flex justify-end">
               <button
                 type="submit"
+                onClick={onClick}
                 className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
                 Send message

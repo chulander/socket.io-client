@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, ChangeEvent, MouseEvent } from "react";
 import { UseSocketType } from "../hooks/useSocket";
 
 /*
@@ -37,15 +37,15 @@ export type Selection = {
 };
 
 export function Selection({ socket }: Selection) {
-  const [state, setState] = useState();
-  const onChange = useCallback((e) => {
+  const [state, setState] = useState("");
+  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     // console.log("what is e.target.value", e.target.value);
     console.log("what is e.target.name", e.target.name);
     // console.log("what is e.target.name", e.target);
     setState(e.target.name);
   }, []);
   const onClick = useCallback(
-    (e) => {
+    (e: MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (socket && state) {
         console.log("emitting getComponent", state);
