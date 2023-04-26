@@ -10,9 +10,10 @@ import http from "http";
 import cors from "cors";
 import { Server } from "socket.io";
 import dotenvSafe from "dotenv-safe";
+import formTypes from "./FormTypes.json" assert { type: "json" };
 // import { ContactUsForm } from "./src/containers/ContactUsForm";
 // @ts-ignore
-import HTMLParser from "html-to-json-parser";
+// import HTMLParser from "html-to-json-parser";
 
 dotenvSafe.config();
 
@@ -32,36 +33,39 @@ async function createServer() {
   io.on("connection", (socket) => {
     console.log("New client connected");
     socket.on("getComponent", async (data) => {
-      const components = [
-        { Contact: "./src/containers/ContactUsForm.tsx" },
-        { Liability: "./src/containers/Liability.tsx" },
-        { Car: "./src/containers/CarInsurance.tsx" },
-        { Home: "./src/containers/HomeInsurance.tsx" },
-      ];
-      const ResolvedComponents = await Promise.all(
-        components.map(async (item) =>
-          vite.ssrLoadModule(Object.values(item)[0])
-        )
-      );
-      const mappings = new Map();
-      components.forEach((item, i) => {
-        mappings.set(Object.keys(item)[0], ResolvedComponents[i]);
-      });
-
-      // const component = await vite.ssrLoadModule(
-      //   "./src/containers/ContactUsForm.tsx"
+      // const components = [
+      //   { Contact: "./src/containers/ContactUsForm.tsx" },
+      //   { Liability: "./src/containers/Liability.tsx" },
+      //   { Car: "./src/containers/CarInsurance.tsx" },
+      //   { Home: "./src/containers/HomeInsurance.tsx" },
+      // ];
+      // const ResolvedComponents = await Promise.all(
+      //   components.map(async (item) =>
+      //     vite.ssrLoadModule(Object.values(item)[0])
+      //   )
       // );
-      const component = mappings.get(data);
-      const { render } = await vite.ssrLoadModule(
-        "./src/entry-server-wrapper.tsx"
-      );
-      const str = await render(component.default);
-      const componentJSON = await HTMLParser(str, true);
+      // const mappings = new Map();
+      // components.forEach((item, i) => {
+      //   mappings.set(Object.keys(item)[0], ResolvedComponents[i]);
+      // });
 
-      console.log('componentJSON', componentJSON)
+      // // const component = await vite.ssrLoadModule(
+      // //   "./src/containers/ContactUsForm.tsx"
+      // // );
+      // const component = mappings.get(data);
+      // const { render } = await vite.ssrLoadModule(
+      //   "./src/entry-server-wrapper.tsx"
+      // );
+      // const str = await render(component.default);
+      // const componentJSON = await HTMLParser(str, true);
+
+      // console.log('componentJSON', componentJSON)
       // // console.log("what is rendered str", str);
+      //@ts-ignore
+      const componentSchema = formTypes[data];
+      console.log("whatis componentSchema", componentSchema);
 
-      socket.emit("component", str);
+      socket.emit("component", JSON.stringify(componentSchema));
       // stream.pipe(str);
     });
     socket.on("disconnect", () => {

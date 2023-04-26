@@ -1,23 +1,15 @@
-import { Suspense, useCallback, useEffect, MouseEvent } from "react";
+import { Suspense, useEffect } from "react";
 import useDynamicComponent from "./hooks/useDynamicComponent";
 import Spinner from "./components/Spinner";
 import Selection from "./containers/Selection";
 import Nav from "./containers/Nav";
+import Form from "@rjsf/mui";
+import validator from "@rjsf/validator-ajv8";
+import { RJSFSchema } from "@rjsf/utils";
 
 export function App() {
   const [socket, component] = useDynamicComponent();
-  // const listener = useCallback((e) => {
-  //   console.log("listener", e);
-  // }, []);
-  // useEffect(() => {
-  //   document.addEventListener("chulander", listener);
-  //   return () => {
-  //     document.removeEventListener("chulander", listener);
-  //   };
-  // }, [listener]);
-  // const onClick = useCallback((e: MouseEvent<HTMLDivElement>) => {
-  //   console.log("what is e", e);
-  // }, []);
+
   useEffect(() => {
     function onSubmit(e: SubmitEvent) {
       console.log("what is e", e);
@@ -36,9 +28,10 @@ export function App() {
 
       <Suspense fallback={<Spinner />}>
         {component && (
-          <div
-            dangerouslySetInnerHTML={{ __html: component }}
-          ></div>
+          <Form
+            schema={JSON.parse(component as string) as RJSFSchema}
+            validator={validator}
+          />
         )}
       </Suspense>
     </section>
