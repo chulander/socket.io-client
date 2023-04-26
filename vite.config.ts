@@ -12,5 +12,8 @@ export default ({ mode }) => {
       origin: `http://127.0.0.1:${process.env.VITE_SERVER_PORT}`,
     },
     plugins: [svgr(), react()],
+    build: {
+      minify: false,
+    },
   });
 };

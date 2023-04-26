@@ -11,6 +11,8 @@ import cors from "cors";
 import { Server } from "socket.io";
 import dotenvSafe from "dotenv-safe";
 // import { ContactUsForm } from "./src/containers/ContactUsForm";
+// @ts-ignore
+import HTMLParser from "html-to-json-parser";
 
 dotenvSafe.config();
 
@@ -54,6 +56,9 @@ async function createServer() {
         "./src/entry-server-wrapper.tsx"
       );
       const str = await render(component.default);
+      const componentJSON = await HTMLParser(str, true);
+
+      console.log('componentJSON', componentJSON)
       // // console.log("what is rendered str", str);
 
       socket.emit("component", str);

@@ -31,6 +31,11 @@ const plans = [
     name: "Liability",
     description: "great liability insurance",
   },
+  {
+    id: "Contact",
+    name: "Contact",
+    description: "Contact Us Form",
+  },
 ];
 export type Selection = {
   socket: UseSocketType[0];
@@ -39,9 +44,6 @@ export type Selection = {
 export function Selection({ socket }: Selection) {
   const [state, setState] = useState("");
   const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    // console.log("what is e.target.value", e.target.value);
-    console.log("what is e.target.name", e.target.name);
-    // console.log("what is e.target.name", e.target);
     setState(e.target.name);
   }, []);
   const onClick = useCallback(

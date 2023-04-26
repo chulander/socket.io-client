@@ -5,12 +5,7 @@ import ScrollToTop from "./hooks/ScrollToTop.ts";
 import { App } from "./App";
 import "./index.css";
 
-export function render(
-  url: StaticRouterProps["location"]
-  // context: StaticHandlerContext
-) {
-  // let router = createStaticRouter(, context);
-  // console.log("what is context", context);
+export function render(url: StaticRouterProps["location"]) {
   return ReactDOMServer.renderToString(
     <StaticRouter location={url}>
       <ScrollToTop />
