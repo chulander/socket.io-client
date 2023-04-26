@@ -8,9 +8,7 @@ export function useSocket(): UseSocketType {
   const [isConnected, setIsConnected] = useState(!!socket?.connected);
 
   useEffect(() => {
-    if (window) {
-      setSocket(io());
-    }
+    setSocket(io());
   }, []);
 
   useEffect(() => {
@@ -20,7 +18,7 @@ export function useSocket(): UseSocketType {
       setIsConnected(true);
     }
 
-    function onDisconnect(data) {
+    function onDisconnect(data: unknown) {
       console.log("disconnected", data);
       setIsConnected(false);
     }

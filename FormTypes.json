@@ -1,0 +1,57 @@
+{
+  "Liability": {
+    "title": "Liability",
+    "type": "object",
+    "required": ["title"],
+    "properties": {
+      "title": { "type": "string", "title": "Title", "default": "A new task" },
+      "done": { "type": "boolean", "title": "Done?", "default": false }
+    }
+  },
+
+  "Home": {
+    "title": "Home Insurance",
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string"
+      },
+      "age": {
+        "type": "number"
+      }
+    }
+  },
+  "Car": {
+    "title": "Car Insurance",
+    "type": "object",
+    "properties": {
+      "model": {
+        "type": "string"
+      },
+      "age": {
+        "type": "number"
+      },
+      "own": {
+        "type": "boolean"
+      }
+    }
+  },
+  "Contact": {
+    "title": "Contact us",
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "reason": {
+        "type": "number",
+        "enum": ["Sales", "Complaints", "Press"]
+      },
+      "email": {
+        "type": "string"
+      },
+      "required": ["name", "email"]
+    }
+  }
+}

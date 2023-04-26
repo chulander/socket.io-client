@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext","WebWorker"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext", "WebWorker"],
     "module": "ESNext",
-    // "skipLibCheck": true,
+    "skipLibCheck": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -18,8 +18,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["vite/client.d.ts", "./env.d.ts"]
+    "types": ["./node_modules/vite/client.d.ts", "./env.d.ts"]
   },
   "include": ["src"],
+  "exclude": ["./node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

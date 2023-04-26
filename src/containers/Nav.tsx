@@ -19,16 +19,7 @@ export function Nav({ className }: Nav) {
               <div className="flex items-center">
                 <div className="shrink-0">
                   <NavItem to="/home">
-                    <img
-                      className="block h-12 w-auto lg:hidden"
-                      src="https://media.graphassets.com/ZTEzJmSoRYGwcyShcGQ2"
-                      alt="Your Company"
-                    />
-                    <img
-                      className="hidden h-12 w-auto lg:block"
-                      src="https://media.graphassets.com/ZTEzJmSoRYGwcyShcGQ2"
-                      alt="Your Company"
-                    />
+                    <h2 className="text-white">Sample App</h2>
                   </NavItem>
                 </div>
               </div>
@@ -38,23 +29,7 @@ export function Nav({ className }: Nav) {
                   {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
 
                   <NavItem to="/careers" className={defaultClassname}>
-                    Careers
-                  </NavItem>
-                  <NavItem
-                    to="/about"
-                    className={({ isActive, isPending }) =>
-                      isActive ? activeClassname : defaultClassname
-                    }
-                  >
-                    About us
-                  </NavItem>
-                  <NavItem
-                    to="/contact"
-                    className={({ isActive, isPending }) =>
-                      isActive ? activeClassname : defaultClassname
-                    }
-                  >
-                    Contact Us
+                    Login
                   </NavItem>
                 </div>
               </div>
@@ -80,21 +55,7 @@ export function Nav({ className }: Nav) {
                 to="/careers"
                 className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
               >
-                Careers
-              </Disclosure.Button>
-              <Disclosure.Button
-                as={NavItemWithRef}
-                to="/about"
-                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-              >
-                About us
-              </Disclosure.Button>
-              <Disclosure.Button
-                as={NavItemWithRef}
-                to="/contact"
-                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-              >
-                Contact us
+                Login
               </Disclosure.Button>
             </div>
           </Disclosure.Panel>

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, ChangeEvent, MouseEvent } from "react";
 import { UseSocketType } from "../hooks/useSocket";
 
 /*
@@ -31,21 +31,23 @@ const plans = [
     name: "Liability",
     description: "great liability insurance",
   },
+  {
+    id: "Contact",
+    name: "Contact",
+    description: "Contact Us Form",
+  },
 ];
 export type Selection = {
   socket: UseSocketType[0];
 };
 
 export function Selection({ socket }: Selection) {
-  const [state, setState] = useState();
-  const onChange = useCallback((e) => {
-    // console.log("what is e.target.value", e.target.value);
-    console.log("what is e.target.name", e.target.name);
-    // console.log("what is e.target.name", e.target);
+  const [state, setState] = useState("");
+  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setState(e.target.name);
   }, []);
   const onClick = useCallback(
-    (e) => {
+    (e: MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (socket && state) {
         console.log("emitting getComponent", state);
@@ -55,7 +57,7 @@ export function Selection({ socket }: Selection) {
     [socket, state]
   );
   return (
-    <form className="border border-black p-4">
+    <form className="flex my-4 flex-col space-y-4 border border-black p-4">
       <fieldset>
         <legend className="sr-only">Plan</legend>
         <div className="space-y-5">
