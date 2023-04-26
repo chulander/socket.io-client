@@ -57,7 +57,7 @@ export function Selection({ socket }: Selection) {
     [socket, state]
   );
   return (
-    <form className="border border-black p-4">
+    <form className="flex my-4 flex-col space-y-4 border border-black p-4">
       <fieldset>
         <legend className="sr-only">Plan</legend>
         <div className="space-y-5">

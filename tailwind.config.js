@@ -4,11 +4,11 @@ import defaultTheme from "tailwindcss/defaultTheme";
 import tailwindforms from "@tailwindcss/forms";
 
 export default {
-  safelist: [
-    {
-      pattern: /./, // the "." means "everything"
-    },
-  ],
+  // safelist: [
+  //   {
+  //     pattern: /./, // the "." means "everything"
+  //   },
+  // ],
   content: ["index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
