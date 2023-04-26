@@ -14,7 +14,6 @@ import dotenvSafe from "dotenv-safe";
 
 dotenvSafe.config();
 
-console.log("what is import.meta.url", import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = parseInt(process.env.VITE_SERVER_PORT || "3000");
 
